@@ -1,35 +1,16 @@
-from flask import Flask, jsonify
+from flask import Flask,jsonify,request
 
-app=Flask(__name__)
+app = Flask(__name__)
 
-books_db=[
-    {
-        'name':'secret',
-        'price':250
+@app.route('/', methods = ['GET'])
+def ReturnJSON():
+	if(request.method == 'GET'):
+		data = {
+			"Modules" : 15,
+			"Subject" : "Data Structures and Algorithms",
+		}
 
-    },
-    {
-        'name':'deep work',
-        'price':350
-    }
-    
+		return jsonify(data)
 
-]
-#retrieve all the books
-@app.route('/')
-def home():
-    return jsonify({'message':'welcome'})
-
-@app.route('/on')
-def on():
-    return jsonify({'state':'1'})
-
-@app.route('/off')
-def off():
-    return jsonify({'state':'0'})
-
-
-
-#retrieve one book
-app.run()
-   
+if __name__=='__main__':
+	app.run(debug=True)
